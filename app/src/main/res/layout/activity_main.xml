@@ -1,0 +1,145 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Customer Name -->
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Customer Name"/>
+
+        <!-- Customer Age -->
+        <EditText
+            android:id="@+id/etAge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Customer Age"
+            android:inputType="number"/>
+
+        <!-- Services -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Services"
+            android:textStyle="bold"
+            android:paddingTop="10dp"/>
+
+        <CheckBox
+            android:id="@+id/cbHaircut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Haircut"/>
+        <CheckBox
+            android:id="@+id/cbHairColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hair Color"/>
+        <CheckBox
+            android:id="@+id/cbFacial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Facial"/>
+        <CheckBox
+            android:id="@+id/cbManicure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Manicure"/>
+        <CheckBox
+            android:id="@+id/cbPedicure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pedicure"/>
+
+        <!-- Products -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Products (Optional)"
+            android:textStyle="bold"
+            android:paddingTop="10dp"/>
+        <CheckBox
+            android:id="@+id/cbShampoo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shampoo"/>
+        <CheckBox
+            android:id="@+id/cbConditioner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Conditioner"/>
+        <CheckBox
+            android:id="@+id/cbMask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mask"/>
+
+        <!-- Service Type -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Service Type"
+            android:textStyle="bold"
+            android:paddingTop="10dp"/>
+        <RadioGroup
+            android:id="@+id/rgServiceType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/rbNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Normal"/>
+            <RadioButton
+                android:id="@+id/rbUrgent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Urgent"/>
+            <RadioButton
+                android:id="@+id/rbPremium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Premium"/>
+        </RadioGroup>
+
+        <!-- Promotional Code -->
+        <!-- Promotional Code -->
+        <EditText
+            android:id="@+id/etPromoCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Promotional Code (Optional)"/>
+
+        <!-- Number of Previous Visits -->
+        <EditText
+            android:id="@+id/etVisits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Number of Previous Visits"
+            android:inputType="number"
+            android:paddingTop="10dp"/>
+
+        <!-- Calculate Bill Button -->
+        <Button
+            android:id="@+id/btnCalculateBill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calculate Bill"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Calculate Bill Button -->
+        <Button
+            android:id="@+id/btnCalculateBill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calculate Bill"
+            android:layout_marginTop="16dp"/>
+    </LinearLayout>
+</ScrollView>
