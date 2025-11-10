@@ -1,5 +1,5 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -23,6 +23,22 @@
             android:layout_height="wrap_content"
             android:hint="Customer Age"
             android:inputType="number"/>
+
+        <!-- Previous Visits -->
+        <EditText
+            android:id="@+id/etVisits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Number of Previous Visits"
+            android:inputType="number"
+            android:paddingTop="10dp"/>
+
+        <!-- Promotional Code -->
+        <EditText
+            android:id="@+id/etPromoCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Promotional Code (Optional)"/>
 
         <!-- Services -->
         <TextView
@@ -109,24 +125,7 @@
                 android:text="Premium"/>
         </RadioGroup>
 
-        <!-- Promotional Code -->
-        <!-- Promotional Code -->
-        <EditText
-            android:id="@+id/etPromoCode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Promotional Code (Optional)"/>
-
-        <!-- Number of Previous Visits -->
-        <EditText
-            android:id="@+id/etVisits"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Number of Previous Visits"
-            android:inputType="number"
-            android:paddingTop="10dp"/>
-
-        <!-- Calculate Bill Button -->
+        <!-- Buttons -->
         <Button
             android:id="@+id/btnCalculateBill"
             android:layout_width="wrap_content"
@@ -134,12 +133,12 @@
             android:text="Calculate Bill"
             android:layout_marginTop="16dp"/>
 
-        <!-- Calculate Bill Button -->
         <Button
-            android:id="@+id/btnCalculateBill"
+            android:id="@+id/btnViewHistory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Calculate Bill"
-            android:layout_marginTop="16dp"/>
+            android:text="View History"
+            android:layout_marginTop="8dp"/>
+
     </LinearLayout>
 </ScrollView>

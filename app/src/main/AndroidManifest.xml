@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BillingLogicCalculation">
         <activity
+            android:name=".History_activity_xml"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

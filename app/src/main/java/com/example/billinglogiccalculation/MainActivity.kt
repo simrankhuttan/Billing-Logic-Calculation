@@ -1,4 +1,7 @@
 package com.example.billinglogiccalculation
+
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cbMask: CheckBox
     private lateinit var rgServiceType: RadioGroup
     private lateinit var btnCalculateBill: Button
+    private lateinit var btnViewHistory: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +46,12 @@ class MainActivity : AppCompatActivity() {
 
         rgServiceType = findViewById(R.id.rgServiceType)
         btnCalculateBill = findViewById(R.id.btnCalculateBill)
+        btnViewHistory = findViewById(R.id.btnViewHistory)
 
-        btnCalculateBill.setOnClickListener {
-            calculateBill()
+        btnCalculateBill.setOnClickListener { calculateBill() }
+
+        btnViewHistory.setOnClickListener {
+            startActivity(Intent(this, HistoryActivity::class.java))
         }
     }
 
@@ -59,10 +66,8 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        val age = ageStr.toInt()
         val visits = visitsStr.toInt()
 
-        // Service Costs
         val serviceCosts = mapOf(
             "Haircut" to 500,
             "Hair Color" to 1500,
@@ -77,32 +82,27 @@ class MainActivity : AppCompatActivity() {
         )
 
         var total = 0
-
-        // Add service costs
         if (cbHaircut.isChecked) total += serviceCosts["Haircut"]!!
         if (cbHairColor.isChecked) total += serviceCosts["Hair Color"]!!
         if (cbFacial.isChecked) total += serviceCosts["Facial"]!!
         if (cbManicure.isChecked) total += serviceCosts["Manicure"]!!
         if (cbPedicure.isChecked) total += serviceCosts["Pedicure"]!!
 
-        // Add product costs
         if (cbShampoo.isChecked) total += productCosts["Shampoo"]!!
         if (cbConditioner.isChecked) total += productCosts["Conditioner"]!!
         if (cbMask.isChecked) total += productCosts["Mask"]!!
 
-        // Loyalty Discount
-        var discount = 0.0
-        discount += when {
+        var discount = when {
             visits >= 5 -> total * 0.20
             visits >= 3 -> total * 0.10
             else -> 0.0
         }
 
-        // Service Type Surcharge
         val selectedTypeId = rgServiceType.checkedRadioButtonId
         var surcharge = 0.0
+        var selectedType = "Normal"
         if (selectedTypeId != -1) {
-            val selectedType = findViewById<RadioButton>(selectedTypeId).text.toString()
+            selectedType = findViewById<RadioButton>(selectedTypeId).text.toString()
             surcharge = when(selectedType) {
                 "Urgent" -> total * 0.15
                 "Premium" -> total * 0.25
@@ -110,22 +110,42 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Promotional Code Discount
-        if (promoCode.equals("BEAUTY10", ignoreCase = true)) {
+        if (promoCode.equals("BEAUTY10", true)) {
             discount += (total - discount) * 0.10
         }
 
-        // GST 18%
         val gst = (total - discount + surcharge) * 0.18
-
-        // Final Amount
         val finalAmount = total - discount + surcharge + gst
 
-        // Show final bill
-        Toast.makeText(
-            this,
-            "Final Bill for $name: ₹${String.format("%.2f", finalAmount)}",
-            Toast.LENGTH_LONG
-        ).show()
+        Toast.makeText(this, "Final Bill: ₹${String.format("%.2f", finalAmount)}", Toast.LENGTH_LONG).show()
+
+        // --- SAVE TO SHARED PREFERENCES ---
+        val sharedPref = getSharedPreferences("SalonHistoryPref", MODE_PRIVATE)
+        val editor = sharedPref.edit()
+
+        val servicesSelected = listOf(
+            if (cbHaircut.isChecked) "Haircut" else "",
+            if (cbHairColor.isChecked) "Hair Color" else "",
+            if (cbFacial.isChecked) "Facial" else "",
+            if (cbManicure.isChecked) "Manicure" else "",
+            if (cbPedicure.isChecked) "Pedicure" else ""
+        ).filter { it.isNotEmpty() }.joinToString(", ")
+
+        val productsSelected = listOf(
+            if (cbShampoo.isChecked) "Shampoo" else "",
+            if (cbConditioner.isChecked) "Conditioner" else "",
+            if (cbMask.isChecked) "Mask" else ""
+        ).filter { it.isNotEmpty() }.joinToString(", ")
+
+        val currentDate = java.text.SimpleDateFormat(
+            "dd/MM/yyyy HH:mm",
+            java.util.Locale.getDefault()
+        ).format(java.util.Date())
+
+        val recordData = "$name|$servicesSelected|$productsSelected|${String.format("%.2f", finalAmount)}|$selectedType|$currentDate"
+
+        val key = System.currentTimeMillis().toString()
+        editor.putString(key, recordData)
+        editor.apply()
     }
 }
